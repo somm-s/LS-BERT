@@ -5,7 +5,7 @@ from transformers import get_linear_schedule_with_warmup
 import json
 
 
-def fine_tune_bert(run_name, config, train_data, eval_data, output_dir, pretrain_run_name, per_device_train_batch_size=96, num_epochs=1, per_device_eval_batch_size=256, logging_steps=500, save_steps=500):
+def fine_tune_bert(run_name, config, train_data, eval_data, output_dir, pretrain_run_name, per_device_train_batch_size=96, num_epochs=1, per_device_eval_batch_size=256, logging_steps=500, save_steps=500, fine_tune_gradient_accumulation_steps=32):
     
     pretrained_model_path = os.path.join(output_dir, pretrain_run_name, "pretrained_model")    
     model = AutoModelForSequenceClassification.from_pretrained(pretrained_model_path, num_labels=2)
@@ -22,7 +22,7 @@ def fine_tune_bert(run_name, config, train_data, eval_data, output_dir, pretrain
         overwrite_output_dir=True,      
         num_train_epochs=num_epochs,            # number of training epochs, feel free to tweak
         per_device_train_batch_size=per_device_train_batch_size, # the training batch size, put it as high as your GPU memory fits
-        gradient_accumulation_steps=32,  # accumulating the gradients before updating the weights
+        gradient_accumulation_steps=fine_tune_gradient_accumulation_steps,  # accumulating the gradients before updating the weights
         per_device_eval_batch_size=per_device_eval_batch_size,  # evaluation batch size
         logging_steps=logging_steps,             # evaluate, log and save model checkpoints every 1000 step
         save_steps=save_steps,

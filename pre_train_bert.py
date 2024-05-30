@@ -27,7 +27,7 @@ def get_voc_size(config, offset=10):
         return num_buckets * 2 + offset
     return num_buckets + offset
 
-def pre_train_bert(run_name, config, train_data, test_data, seq_length, embedding_length, num_hidden_layers, num_attention_heads, output_dir, num_epochs, per_device_train_batch_size):
+def pre_train_bert(run_name, config, train_data, test_data, seq_length, embedding_length, num_hidden_layers, num_attention_heads, output_dir, num_epochs, per_device_train_batch_size, gradient_accumulation_steps=32):
     model_config = BertConfig(
         vocab_size=get_voc_size(config), 
         max_position_embeddings=seq_length,
@@ -50,7 +50,7 @@ def pre_train_bert(run_name, config, train_data, test_data, seq_length, embeddin
         overwrite_output_dir=True,      
         num_train_epochs=num_epochs,            # number of training epochs, feel free to tweak
         per_device_train_batch_size=per_device_train_batch_size, # the training batch size, put it as high as your GPU memory fits
-        gradient_accumulation_steps=32,  # accumulating the gradients before updating the weights
+        gradient_accumulation_steps=gradient_accumulation_steps,  # accumulating the gradients before updating the weights
         per_device_eval_batch_size=per_device_train_batch_size,  # evaluation batch size
         logging_steps=1000,             # evaluate, log and save model checkpoints every 1000 step
         save_steps=1000,

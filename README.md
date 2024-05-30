@@ -22,3 +22,9 @@ ssh -L 9998:localhost:9998 node01
 ```
 
 Connect to the jupyter notebook with the website shown in the **err** log file.
+
+## Documentation
+For clear instructions on how to train and use LS-BERT, go through the jupyter notebook.
+
+## Additional Files and Ablation Experiment
+The folder ```additional_files``` contains additional implementations that were useful when applying LS-BERT for a real-time competition scenario. It contains undocumented code that might be beneficial for certain users. The folder ```ablation_experiment``` contains files that were used to run the second experiment as described in the thesis report. However, its usefulness is limited if the concrete datasets are not available. The code does not conform to the most recent version of the libraries in this project and is included for completeness. Running it would require some adaptations. 
