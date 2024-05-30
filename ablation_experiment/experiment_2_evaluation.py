@@ -87,25 +87,6 @@ if do_evaluate:
     valid_data_rt = valid_data[valid_labels == 0]
     valid_data_benign = valid_data[valid_labels == 1]
 
-# load_path = "dataset_embeddings"
-# train_data_rt = np.load(load_path + '/' + configuration + '_train_rt.npy')
-# train_data_benign = np.load(load_path + '/' + configuration + '_train_benign.npy')
-# test_data_rt = np.load(load_path + '/' + configuration + '_test_rt.npy')
-# test_data_benign = np.load(load_path + '/' + configuration + '_test_benign.npy')
-# valid_data_rt = np.load(load_path + '/' + configuration + '_valid_rt.npy')
-# valid_data_benign = np.load(load_path + '/' + configuration + '_valid_benign.npy')
-
-# pre_train_data_rt = np.load(load_path + '/pre_' + configuration + '_train_rt.npy')
-# pre_train_data_benign = np.load(load_path + '/pre_' + configuration + '_train_benign.npy')
-# pre_test_data_rt = np.load(load_path + '/pre_' + configuration + '_test_rt.npy')
-# pre_test_data_benign = np.load(load_path + '/pre_' + configuration + '_test_benign.npy')
-# pre_valid_data_rt = np.load(load_path + '/pre_' + configuration + '_valid_rt.npy')
-# pre_valid_data_benign = np.load(load_path + '/pre_' + configuration + '_valid_benign.npy')
-# print("Loaded embeddings from", load_path)
-
-
-
-
 
 
 
@@ -131,33 +112,33 @@ print(classification_report(true_labels, pred_labels, target_names=["RT", "Benig
 
 
 
-# # import random forest classifier
-# from sklearn.ensemble import RandomForestClassifier
-# from sklearn.metrics import classification_report
-# from sklearn.metrics import confusion_matrix
-# from sklearn.metrics import accuracy_score
+# import random forest classifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
 
-# X = np.concatenate([pre_train_data_rt, pre_train_data_benign])
-# y = np.concatenate([np.zeros(len(pre_train_data_rt)), np.ones(len(pre_train_data_benign))])
-# X_test = np.concatenate([pre_test_data_rt, pre_test_data_benign])
-# y_test = np.concatenate([np.zeros(len(pre_test_data_rt)), np.ones(len(pre_test_data_benign))])
-# X_val = np.concatenate([pre_valid_data_rt, pre_valid_data_benign])
-# y_val = np.concatenate([np.zeros(len(pre_valid_data_rt)), np.ones(len(pre_valid_data_benign))])
+X = np.concatenate([pre_train_data_rt, pre_train_data_benign])
+y = np.concatenate([np.zeros(len(pre_train_data_rt)), np.ones(len(pre_train_data_benign))])
+X_test = np.concatenate([pre_test_data_rt, pre_test_data_benign])
+y_test = np.concatenate([np.zeros(len(pre_test_data_rt)), np.ones(len(pre_test_data_benign))])
+X_val = np.concatenate([pre_valid_data_rt, pre_valid_data_benign])
+y_val = np.concatenate([np.zeros(len(pre_valid_data_rt)), np.ones(len(pre_valid_data_benign))])
 
-# clf = RandomForestClassifier(n_estimators=100, max_depth=10, random_state=0, n_jobs=-1)
-# clf.fit(X, y)
+clf = RandomForestClassifier(n_estimators=100, max_depth=10, random_state=0, n_jobs=-1)
+clf.fit(X, y)
 
-# print("Pre-Trained Model (Random Forest)")
+print("Pre-Trained Model (Random Forest)")
 
-# y_pred = clf.predict(X_test)
-# print(classification_report(y_test, y_pred))
-# print(confusion_matrix(y_test, y_pred))
-# print("Accuracy:", accuracy_score(y_test, y_pred))
+y_pred = clf.predict(X_test)
+print(classification_report(y_test, y_pred))
+print(confusion_matrix(y_test, y_pred))
+print("Accuracy:", accuracy_score(y_test, y_pred))
 
-# y_pred = clf.predict(X_val)
-# print(classification_report(y_val, y_pred))
-# print(confusion_matrix(y_val, y_pred))
-# print("Accuracy:", accuracy_score(y_val, y_pred))
+y_pred = clf.predict(X_val)
+print(classification_report(y_val, y_pred))
+print(confusion_matrix(y_val, y_pred))
+print("Accuracy:", accuracy_score(y_val, y_pred))
 
 
 
@@ -172,31 +153,31 @@ print(classification_report(true_labels, pred_labels, target_names=["RT", "Benig
 
 
 # # import logistic regression
-# from sklearn.linear_model import LogisticRegression
-# from sklearn.metrics import classification_report
-# from sklearn.metrics import confusion_matrix
-# from sklearn.metrics import accuracy_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
 
-# X = np.concatenate([pre_train_data_rt, pre_train_data_benign])
-# y = np.concatenate([np.zeros(len(pre_train_data_rt)), np.ones(len(pre_train_data_benign))])
-# X_test = np.concatenate([pre_test_data_rt, pre_test_data_benign])
-# y_test = np.concatenate([np.zeros(len(pre_test_data_rt)), np.ones(len(pre_test_data_benign))])
-# X_val = np.concatenate([pre_valid_data_rt, pre_valid_data_benign])
-# y_val = np.concatenate([np.zeros(len(pre_valid_data_rt)), np.ones(len(pre_valid_data_benign))])
+X = np.concatenate([pre_train_data_rt, pre_train_data_benign])
+y = np.concatenate([np.zeros(len(pre_train_data_rt)), np.ones(len(pre_train_data_benign))])
+X_test = np.concatenate([pre_test_data_rt, pre_test_data_benign])
+y_test = np.concatenate([np.zeros(len(pre_test_data_rt)), np.ones(len(pre_test_data_benign))])
+X_val = np.concatenate([pre_valid_data_rt, pre_valid_data_benign])
+y_val = np.concatenate([np.zeros(len(pre_valid_data_rt)), np.ones(len(pre_valid_data_benign))])
 
-# clf = LogisticRegression(random_state=0, max_iter=1000, n_jobs=-1).fit(X, y)
+clf = LogisticRegression(random_state=0, max_iter=1000, n_jobs=-1).fit(X, y)
 
-# print("Pre-Trained Model (Logistic Regression)")
+print("Pre-Trained Model (Logistic Regression)")
 
-# y_pred = clf.predict(X_test)
-# print(classification_report(y_test, y_pred))
-# print(confusion_matrix(y_test, y_pred))
-# print("Accuracy:", accuracy_score(y_test, y_pred))
+y_pred = clf.predict(X_test)
+print(classification_report(y_test, y_pred))
+print(confusion_matrix(y_test, y_pred))
+print("Accuracy:", accuracy_score(y_test, y_pred))
 
-# y_pred = clf.predict(X_val)
-# print(classification_report(y_val, y_pred))
-# print(confusion_matrix(y_val, y_pred))
-# print("Accuracy:", accuracy_score(y_val, y_pred))
+y_pred = clf.predict(X_val)
+print(classification_report(y_val, y_pred))
+print(confusion_matrix(y_val, y_pred))
+print("Accuracy:", accuracy_score(y_val, y_pred))
 
 
 

@@ -15,7 +15,7 @@ import joblib
 
 def get_embeddings(model_path, data, batch_size=256, num_samples=5000, resample=True, use_labels=True, model=None):
     """
-    Get embeddings from a BERT model. Take random samples from the data.
+    Get embeddings from a BERT model. Take random samples from the data if resample=True.
     """
     # Randomly sample data
     if len(data) > num_samples and resample:
